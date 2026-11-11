@@ -165,6 +165,15 @@ section h2::after{content:'';display:block;width:56px;height:4px;border-radius:4
 .btn.p{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;color:var(--on)}
 .hero.reset>*{animation:none!important;opacity:0!important}
 .photo{padding:5px}
+body{background-attachment:scroll}
+nav{-webkit-backdrop-filter:none;backdrop-filter:none;background:color-mix(in srgb,var(--bg) 94%,transparent)}
+.blob{filter:none;background:radial-gradient(circle,var(--accent),transparent 68%);opacity:.18;will-change:transform}
+.hero::after{filter:none;background:radial-gradient(circle,var(--accent2),transparent 68%);opacity:.2;will-change:transform}
+.hero .tag{animation:up .8s .05s cubic-bezier(.2,.7,.2,1) forwards}
+.hero h1{animation:up .8s .2s cubic-bezier(.2,.7,.2,1) forwards;background-size:100% 100%}
+.photo::before{will-change:transform}
+.hero.reset .blob,.hero.reset::before,.hero.reset::after,.hero.reset .photo::before{animation-play-state:paused}
+.progress{width:100%;transform:scaleX(0);transform-origin:left;will-change:transform;box-shadow:none}
 </style>
 </head>
 <body>
@@ -266,8 +275,8 @@ var roles=['Company Secretariat','Finance','MIS'],ti=document.getElementById('ty
 if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){ti.textContent=roles.join(' · ')}else{(function tick(){var w=roles[ri];ci+=del?-1:1;ti.textContent=w.slice(0,ci);var d=del?45:90;if(!del&&ci===w.length){del=true;d=1400}else if(del&&ci===0){del=false;ri=(ri+1)%roles.length;d=350}setTimeout(tick,d)})()}
 var logo=document.querySelector('a.logo');if(logo)logo.addEventListener('click',function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})});
 var prog=document.getElementById('prog'),links=document.querySelectorAll('nav ul a');
-function onScroll(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+'%';if(h.scrollTop<200)links.forEach(function(a){a.classList.remove('active')})}
-window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+function onScroll(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;prog.style.transform='scaleX('+(m>0?h.scrollTop/m:0)+')';if(h.scrollTop<200)links.forEach(function(a){a.classList.remove('active')})}
+var tk=false;window.addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(function(){onScroll();tk=false})}},{passive:true});onScroll();
 var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&document.documentElement.scrollTop>=200){links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-40% 0px -55% 0px'});
 document.querySelectorAll('section[id]').forEach(function(s){so.observe(s)});
 var heroEl=document.querySelector('.hero');if(heroEl){new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){requestAnimationFrame(function(){heroEl.classList.remove('reset')})}else{heroEl.classList.add('reset')}})},{threshold:0}).observe(heroEl)}
