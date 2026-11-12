@@ -4,11 +4,7 @@ Personal portfolio website built with plain HTML, CSS and a little JavaScript (n
 Only the Google Fonts stylesheet is loaded from the web.
 
 ## Project structure
-```
-index.html          the whole site (text, styles, scripts)
-assets/images/      profile photo, avatar, Gmail logo and certificate images
-.nojekyll           tells GitHub Pages to serve files as-is
-```
+
 
 ## Sections
 About · Experience · Education · Skills & Certifications (with verification links) · Connect
